@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\HtmlSnippetController;
+use App\Http\Controllers\LinkController;
+use App\Http\Controllers\PdfFileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/pdf-files', [PdfFileController::class, 'index']);
+Route::get('/html-snippets', [HtmlSnippetController::class, 'index']);
+Route::get('/links', [LinkController::class, 'index']);
