@@ -9,6 +9,11 @@ class Link extends Model
 {
     use HasFactory;
 
+    /* Casting the `open_in_new_tab` column to a boolean. */
+    protected $casts = [
+      'open_in_new_tab' => 'boolean'
+    ];
+    
     protected $fillable = [
       'title',
       'link',
