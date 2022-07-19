@@ -16,20 +16,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-//Pdf file endpoints
-Route::get('/pdf-files', [PdfFileController::class, 'index']);
-Route::get('/pdf-files/{id}', [PdfFileController::class, 'show']);
-Route::post('/pdf-files', [PdfFileController::class, 'store']);
-Route::post('/pdf-files/{id}', [PdfFileController::class, 'update']);
-Route::delete('/pdf-files/{id}', [PdfFileController::class, 'delete']);
-
-
-//Html Snippet endpoints
-Route::get('/html-snippets', [HtmlSnippetController::class, 'index']);
-Route::get('/html-snippets/{id}', [HtmlSnippetController::class, 'show']);
-
-
-//Link endpoints
-Route::get('/links', [LinkController::class, 'index']);
-Route::get('/links/{id}', [LinkController::class, 'show']);
+Route::apiResource('/pdf-files', PdfFileController::class);
+Route::apiResource('/html-snippets', HtmlSnippetController::class);
+Route::apiResource('/links', LinkController::class);

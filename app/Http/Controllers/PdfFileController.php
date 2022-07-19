@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PdfFile;
 use Illuminate\Http\Request;
 
 class PdfFileController extends Controller
@@ -11,9 +12,9 @@ class PdfFileController extends Controller
         return response()->json($this->resourceService->getAllPdfFiles());
     }
 
-    public function show($id)
+    public function show(PdfFile $pdfFile)
     {
-        return response()->json($this->resourceService->getSinglePdfFile($id));
+        return response()->json($pdfFile);
     }
 
     public function store(Request $request)
@@ -26,20 +27,18 @@ class PdfFileController extends Controller
         return response()->json(['message' => 'Created Successfully']);
     }
 
-    public function update($id, Request $request)
+    public function update(PdfFile $pdfFile, Request $request)
     {
         $valid = $request->validate([
             'title' => 'required|max:255',
             'file' => 'nullable|mimes:pdf|max:10000',
         ]);
-        $pdfFile = $this->resourceService->getSinglePdfFile($id);
         $this->resourceService->updatePdfFile($pdfFile, $valid);
         return response()->json(['message' => 'Updated Successfully']);
     }
 
-    public function delete($id)
+    public function delete(PdfFile $pdfFile)
     {
-        $pdfFile = $this->resourceService->getSinglePdfFile($id);
         $this->resourceService->deleteFile($pdfFile);
         $pdfFile->delete();
         return response()->json(['message' => 'Deleted Successfully']);

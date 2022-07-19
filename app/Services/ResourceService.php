@@ -17,12 +17,6 @@ class ResourceService
     {
         return PdfFile::all();
     }
-
-    public function getSinglePdfFile($id)
-    {
-        return PdfFile::findOrFail($id);
-    }
-
     public function storePdfFile($data)
     {
          $file = $data['file'];
@@ -64,13 +58,7 @@ class ResourceService
     {
         return HtmlSnippet::all();
     }
-
-    public function getSingleHtmlSnippet($id)
-    {
-        return HtmlSnippet::findOrFail($id);
-    }
     /*HtmlSnippet Methods End*/
-
 
 
 
@@ -80,16 +68,24 @@ class ResourceService
     {
         return Link::all();
     }
-    public function getSingleLink($id)
-    {
-        return Link::findOrFail($id);
-    }
+
     /*Link Methods End*/
 
+
+    /*Other methods*/
     public function deleteFile($file)
     {
         if (file_exists(storage_path("uploads\\").$file->file_name)) {
             unlink(storage_path('uploads\\').$file->file_name);
          }
+    }
+
+    public function storeModel($data, $model)
+    {
+        return $model::create($data);
+    }
+    public function updateModel($model, $data)
+    {
+        return $model->update($data);
     }
 }
