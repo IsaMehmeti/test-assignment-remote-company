@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+        <title>@yield('page_name')</title>
 		@yield('custom_header')
 	</head>
 	<body>

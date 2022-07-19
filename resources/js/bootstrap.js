@@ -1,10 +1,9 @@
 window._ = require('lodash');
 import Vue from 'vue';
+import Buefy from 'buefy';
+import 'buefy/dist/buefy.css'
 
-//components
-try {
-    require('bootstrap');
-} catch (e) {}
+Vue.use(Buefy);
 
 window.axios = require('axios');
 
