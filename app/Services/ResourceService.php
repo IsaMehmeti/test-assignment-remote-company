@@ -22,6 +22,38 @@ class ResourceService
     {
         return PdfFile::findOrFail($id);
     }
+
+    public function storePdfFile($data)
+    {
+         $file = $data['file'];
+         $file_name = uniqid().'-'.time().'.'.$file->getClientOriginalExtension();
+         $pdfFile = new PdfFile;
+         $pdfFile->title = $data['title'];
+         $pdfFile->name = $file->getClientOriginalName();
+         $pdfFile->file_name = $file_name;
+         $pdfFile->file_path = '/uploads';
+         $pdfFile->size = $file->getSize();
+         $file->move(storage_path('uploads'), $file_name);
+         return $pdfFile->save();
+    }
+
+    public function updatePdfFile($pdfFile, $data)
+    {
+        if (!array_key_exists('file', $data)){
+            $pdfFile->update($data);
+        }else{
+         $this->deleteFile($pdfFile);
+         $file = $data['file'];
+         $file_name = uniqid().'-'.time().'.'.$file->getClientOriginalExtension();
+         $pdfFile->title = $data['title'];
+         $pdfFile->name = $file->getClientOriginalName();
+         $pdfFile->file_name = $file_name;
+         $pdfFile->file_path = '/uploads';
+         $pdfFile->size = $file->getSize();
+         $file->move(storage_path('uploads'), $file_name);
+         $pdfFile->save();
+        }
+    }
     /*PdfFile Methods End*/
 
 
@@ -53,4 +85,11 @@ class ResourceService
         return Link::findOrFail($id);
     }
     /*Link Methods End*/
+
+    public function deleteFile($file)
+    {
+        if (file_exists(storage_path("uploads\\").$file->file_name)) {
+            unlink(storage_path('uploads\\').$file->file_name);
+         }
+    }
 }

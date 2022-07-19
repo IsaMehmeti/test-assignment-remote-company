@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 //Pdf file endpoints
 Route::get('/pdf-files', [PdfFileController::class, 'index']);
 Route::get('/pdf-files/{id}', [PdfFileController::class, 'show']);
+Route::post('/pdf-files', [PdfFileController::class, 'store']);
+Route::post('/pdf-files/{id}', [PdfFileController::class, 'update']);
+Route::delete('/pdf-files/{id}', [PdfFileController::class, 'delete']);
 
 
 //Html Snippet endpoints
