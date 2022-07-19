@@ -17,6 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Pdf file endpoints
 Route::get('/pdf-files', [PdfFileController::class, 'index']);
+Route::get('/pdf-files/{id}', [PdfFileController::class, 'show']);
+
+
+//Html Snippet endpoints
 Route::get('/html-snippets', [HtmlSnippetController::class, 'index']);
+Route::get('/html-snippets/{id}', [HtmlSnippetController::class, 'show']);
+
+
+//Link endpoints
 Route::get('/links', [LinkController::class, 'index']);
+Route::get('/links/{id}', [LinkController::class, 'show']);

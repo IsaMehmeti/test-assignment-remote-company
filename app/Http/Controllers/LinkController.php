@@ -10,4 +10,9 @@ class LinkController extends Controller
     {
         return response()->json($this->resourceService->getAllLinks());
     }
+
+    public function show($id)
+    {
+        return response()->json($this->resourceService->getSingleLink($id));
+    }
 }

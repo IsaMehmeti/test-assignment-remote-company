@@ -10,4 +10,9 @@ class PdfFileController extends Controller
     {
         return response()->json($this->resourceService->getAllPdfFiles());
     }
+
+    public function show($id)
+    {
+        return response()->json($this->resourceService->getSinglePdfFile($id));
+    }
 }
