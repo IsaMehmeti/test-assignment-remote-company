@@ -10,6 +10,15 @@
             </b-modal>
             <!--PDF File Modals End-->
 
+            <!--HtmlSnippet Modals-->
+            <b-modal :active.sync="htmlSnippetEditOpen" v-if="htmlSnippet">
+                <HtmlSnippetEdit :html-snippet="htmlSnippet" @update="updateHtmlSnippet"></HtmlSnippetEdit>
+            </b-modal>
+            <b-modal :active.sync="htmlSnippetCreateOpen">
+                <HtmlSnippetCreate @created="storeHtmlSnippet($event)"></HtmlSnippetCreate>
+            </b-modal>
+            <!--HtmlSnippet Modals End-->
+
             <!--Link Modals-->
             <b-modal :active.sync="linkEditOpen" v-if="link">
                 <LinkEdit :link="link" @update="updateLink"></LinkEdit>
@@ -41,6 +50,12 @@
 
             <!--Html Snippet-->
             <b-tab-item label="HTML snippet">
+                <HtmlSnippets
+                    :html-snippets="htmlSnippets"
+                    @deleted="deleteHtmlSnippet($event)"
+                    @edited="editHtmlSnippet($event)"
+                    @created="htmlSnippetCreateOpen = true"
+                />
             </b-tab-item>
             <!--Html Snippet End-->
 
@@ -67,6 +82,13 @@ import PdfFileEdit from "../Partials/PdfFileEdit";
 import PdfFileCreate from "../Partials/PdfFileCreate";
 //pdfFile imports end
 
+// pdfFile imports
+import HtmlSnippetService from "../../Services/HtmlSnippetService";
+import HtmlSnippets from "../Partials/HtmlSnippets";
+import HtmlSnippetEdit from "../Partials/HtmlSnippetEdit";
+import HtmlSnippetCreate from "../Partials/HtmlSnippetCreate";
+//pdfFile imports end
+
 //link imports
 import LinkService from "../../Services/LinkService";
 import Links from "../Partials/Links";
@@ -84,6 +106,12 @@ export default {
          PdfFileCreate,
          //pdfFile components end
 
+         // pdfFile components
+         HtmlSnippets,
+         HtmlSnippetEdit,
+         HtmlSnippetCreate,
+         //pdfFile components end
+
          //link components
          Links,
          LinkEdit,
@@ -92,13 +120,19 @@ export default {
     },
     data(){
         return {
-
         //pdfFile data
            pdfFiles: [],
            pdfFileEditOpen: false,
            pdfFileCreateOpen: false,
            pdfFile: null,
         //pdfFile data end
+
+        //htmlSnippet data
+           htmlSnippets: [],
+           htmlSnippetEditOpen: false,
+           htmlSnippetCreateOpen: false,
+           htmlSnippet: null,
+        //htmlSnippet data end
 
         //link data
            links: [],
@@ -111,6 +145,7 @@ export default {
     created() {
         this.getPdfFiles();
         this.getLinks();
+        this.getHtmlSnippets();
     },
     methods: {
         //pdfFile Methods
@@ -176,7 +211,48 @@ export default {
         },
         //pdfFile Methods End
 
-        //Link Methods
+        //htmlSnippet Methods
+        getHtmlSnippets(){
+            const loading = this.$buefy.loading.open();
+            HtmlSnippetService.index().then(({data}) => this.htmlSnippets = data)
+            .finally(() => loading.close());
+        },
+        storeHtmlSnippet(data){
+            const loading = this.$buefy.loading.open();
+            return HtmlSnippetService.store(data)
+                .then(({data}) => this.$toast.message(data.message))
+                .catch(error => this.$toast.error(error))
+                .finally(() => {
+                    loading.close();
+                    this.htmlSnippetCreateOpen = false;
+                    this.getHtmlSnippets();
+                });
+        },
+        editHtmlSnippet(data){
+           this.htmlSnippet = data;
+           this.htmlSnippetEditOpen = true;
+        },
+        updateHtmlSnippet(data){
+            const loading = this.$buefy.loading.open();
+            return HtmlSnippetService.update(data.id, data)
+                .then(({data}) => this.$toast.message(data.message))
+                .catch(error => this.$toast.error(error))
+                .finally(() => {
+                    loading.close();
+                    this.htmlSnippetEditOpen = false;
+                    this.getHtmlSnippets();
+                });
+        },
+        deleteHtmlSnippet(id){
+            const loading = this.$buefy.loading.open();
+            return HtmlSnippetService.delete(id)
+                .then(({data}) => this.$toast.message(data.message))
+                .catch(error => this.$toast.error(error))
+                .finally(() => this.getHtmlSnippets() || loading.close());
+        },
+        //htmlSnippet Methods End
+
+        //link Methods
         getLinks(){
             const loading = this.$buefy.loading.open();
             LinkService.index().then(({data}) => this.links = data)
@@ -215,8 +291,7 @@ export default {
                 .catch(error => this.$toast.error(error))
                 .finally(() => this.getLinks() || loading.close());
         },
-        //Link Methods End
-
+        //link Methods End
     }
 }
 </script>
