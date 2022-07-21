@@ -18,13 +18,11 @@
     composer install
     cp .env.example .env
     php artisan key:generate
-    php artisan serve
   
     
 **Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
 
     php artisan migrate
-    php artisan serve
 	php artisan db:seed
 
 ## Pulling the Project
