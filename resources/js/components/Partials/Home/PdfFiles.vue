@@ -1,15 +1,9 @@
 <template>
     <div>
         <div class="flex justify-between mb-3">
-            <b-button @click="$emit('created')"
-                     type="is-primary"
-                     icon-right="plus"
-            >Create</b-button>
-            <div class="flex justify-end" style="display: flex">
-                <b-field label="Files per page" label-position="inside">
-                    <b-input min="1" v-model="pdfFilesPerPage"></b-input>
-                </b-field>
-            </div>
+            <b-field label="Files per page" label-position="inside">
+                <b-input min="1" v-model="pdfFilesPerPage"></b-input>
+            </b-field>
         </div>
         <div class="box m-auto mt-2">
         <b-table
@@ -22,21 +16,18 @@
                 {{ props.row.title }}
             </b-table-column>
             <b-table-column field="file_name" label="File Name" v-slot="props">
-                {{ props.row.name }}
+                <a @click="$emit('download', props.row)">
+                    {{ props.row.name }}
+                </a>
             </b-table-column>
             <b-table-column field="size" label="File Size" v-slot="props">
                  {{ (props.row.size / 1024 / 1024).toFixed(1) }} MB
             </b-table-column>
             <b-table-column label="Actions" v-slot="props">
                 <b-button
-                    icon-right="pencil"
-                    @click="$emit('edited', props.row)">
+                    icon-right="download"
+                    @click="$emit('download', props.row)">
                 </b-button>
-                <b-button
-                    type="is-danger"
-                    icon-right="delete"
-                    @click="$emit('deleted', props.row.id)"
-                />
             </b-table-column>
             <template #empty>
                 <div class="has-text-centered">No Data</div>

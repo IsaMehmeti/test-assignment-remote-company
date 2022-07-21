@@ -43,4 +43,15 @@ class PdfFileController extends Controller
         $pdfFile->delete();
         return response()->json(['message' => 'Deleted Successfully']);
     }
+
+    public function download(PdfFile $pdfFile)
+    {
+        $filePath = storage_path('uploads\\');
+    	$headers = ['Content-Type: application/pdf'];
+    	$fileName = $pdfFile->file_name;
+    	if (!file_exists(storage_path('uploads\\').$pdfFile->file_name)) {
+    	    return response()->json(['message' => 'File doesn\'t exist'], 404);
+    	}
+    	return response()->download($filePath.$fileName, $pdfFile->name, $headers);
+    }
 }

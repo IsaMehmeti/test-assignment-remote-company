@@ -17,5 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::apiResource('/pdf-files', PdfFileController::class);
+Route::get('/pdf-files/{pdfFile}/download', [PdfFileController::class, 'download']);
 Route::apiResource('/html-snippets', HtmlSnippetController::class);
 Route::apiResource('/links', LinkController::class);

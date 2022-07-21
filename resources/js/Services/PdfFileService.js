@@ -4,6 +4,9 @@ export default class PdfFileService {
     static index(){
         return api().get('/pdf-files');
     }
+    static download(id){
+        return api().get(`/pdf-files/${id}/download`, {responseType: 'arraybuffer'});
+    }
     static store (data) {
         return api().post('/pdf-files', data);
     }
