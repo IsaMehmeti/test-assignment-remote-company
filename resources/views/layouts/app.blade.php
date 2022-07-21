@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css">
         <title>@yield('page_name')</title>
 		@yield('custom_header')
 	</head>
