@@ -39,7 +39,7 @@ class LinkController extends Controller
         return response()->json(['message' => 'Updated Successfully']);
     }
 
-    public function delete(Link $link)
+    public function destroy(Link $link)
     {
         $link->delete();
         return response()->json(['message' => 'Deleted Successfully']);

@@ -37,7 +37,7 @@ class PdfFileController extends Controller
         return response()->json(['message' => 'Updated Successfully']);
     }
 
-    public function delete(PdfFile $pdfFile)
+    public function destroy(PdfFile $pdfFile)
     {
         $this->resourceService->deleteFile($pdfFile);
         $pdfFile->delete();

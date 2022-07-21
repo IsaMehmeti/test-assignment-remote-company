@@ -40,7 +40,7 @@ class HtmlSnippetController extends Controller
         return response()->json(['message' => 'Updated Successfully']);
     }
 
-    public function delete(PdfFile $pdfFile)
+    public function destroy(PdfFile $pdfFile)
     {
         $pdfFile->delete();
         return response()->json(['message' => 'Deleted Successfully']);
