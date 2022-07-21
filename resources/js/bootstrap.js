@@ -1,4 +1,3 @@
-window._ = require('lodash');
 import Vue from 'vue';
 import Buefy from 'buefy';
 import Toaster from "./modules/Toaster";
