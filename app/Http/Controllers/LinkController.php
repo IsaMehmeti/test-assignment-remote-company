@@ -21,7 +21,7 @@ class LinkController extends Controller
     {
         $valid = $request->validate([
             'title' => 'required|max:255',
-            'link' => 'required|url|max:255',
+            'link' => 'required||max:255',
             'open_in_new_tab' => 'required|boolean',
         ]);
         $this->resourceService->storeModel($valid, 'App\Models\Link');
@@ -32,7 +32,7 @@ class LinkController extends Controller
     {
         $valid = $request->validate([
             'title' => 'required|max:255',
-            'link' => 'required|max:255',
+            'link' => 'required|url|max:255',
             'open_in_new_tab' => 'required|boolean',
         ]);
         $this->resourceService->updateModel($link, $valid);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HtmlSnippet;
 use App\Models\PdfFile;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -13,9 +14,9 @@ class HtmlSnippetController extends Controller
         return response()->json($this->resourceService->getAllHtmlSnippets());
     }
 
-    public function show(PdfFile $pdfFile)
+    public function show(HtmlSnippet $htmlSnippet)
     {
-        return response()->json($pdfFile);
+        return response()->json($htmlSnippet);
     }
 
     public function store(Request $request)
@@ -29,20 +30,21 @@ class HtmlSnippetController extends Controller
         return response()->json(['message' => 'Created Successfully']);
     }
 
-    public function update(PdfFile $pdfFile, Request $request)
+    public function update(HtmlSnippet $htmlSnippet, Request $request)
     {
         $valid = $request->validate([
             'title' => 'required|max:255',
             'description' => 'nullable',
             'snippet' => 'required',
         ]);
-        $this->resourceService->updateModel($pdfFile, $valid);
+        $this->resourceService->updateModel($htmlSnippet, $valid);
         return response()->json(['message' => 'Updated Successfully']);
     }
 
-    public function destroy(PdfFile $pdfFile)
+    public function destroy(HtmlSnippet $htmlSnippet)
     {
-        $pdfFile->delete();
+
+        $htmlSnippet->delete();
         return response()->json(['message' => 'Deleted Successfully']);
     }
 }
