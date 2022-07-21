@@ -33,7 +33,7 @@
         <section class="container mt-4">
         <div class="block">
           <h1 class="title">
-            Resources
+            Resources - Admin
           </h1>
         </div>
         <b-tabs >
@@ -203,7 +203,7 @@ export default {
             let formData = new FormData;
             if (data.file){
                 formData.append('file', data.file, data.file.name)
-                if ((data.file.size  / 1024 / 1024) > 2) return false;
+                if ((data.file.size / 1024 / 1024) > 2) return false;
             }
             if(data.title)formData.append('title', data.title);
 
