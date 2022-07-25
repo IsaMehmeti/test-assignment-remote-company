@@ -13,8 +13,8 @@
 
 **command list:**
 
-    git clone https://github.com/IsaMehmeti/test-assignment-remote-company.git
-    cd test-assignment-remote-company
+    git clone https://github.com/IsaMehmeti/vue-js-resources.git
+    cd vue-js-resources
     composer install
     cp .env.example .env
     php artisan key:generate
