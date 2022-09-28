@@ -1,14 +1,6 @@
 <template>
     <div>
       <b-navbar type="is-light" spaced >
-          <template #brand>
-            <b-navbar-item>
-                <img
-                    src="https://www.remotecompany.com/assets/remote-company-logo.svg"
-                    alt="The Remote Company"
-                >
-            </b-navbar-item>
-        </template>
         <template #start>
             <b-navbar-item  href="/home" :active="activePage === 'Home'">
               <b-icon
